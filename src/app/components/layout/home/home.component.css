@@ -1,0 +1,201 @@
+/* Contenedor principal que divide el espacio en dos secciones */
+.container-home {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos dentro del contenedor */
+  height: 100vh; /* Altura completa de la ventana del navegador */
+  overflow: hidden; /* Oculta cualquier contenido fuera de la vista */
+}
+
+/* Carrusel en el lado izquierdo */
+.carousel-container {
+  position: relative;
+  width: 60%; /* El carrusel ocupará el 60% del ancho de la pantalla */
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.container-right {
+  width: 40%;
+  height: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Las imágenes del carrusel */
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen no se deforme */
+  display: block;
+}
+
+/* Las diapositivas del carrusel */
+.carousel-slide {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: opacity 1s ease-in-out;
+}
+
+.carousel-slide.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Las frases del carrusel */
+.carousel-caption {
+  position: absolute;
+  padding: 10px;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 20px;
+  width: 280px;
+  opacity: 0;
+  animation-delay: 1s;
+  transform: translateY(20px);
+}
+
+.container-benefits {
+  color: var(--primary-color);
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.container-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Animación para el desvanecimiento */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Comienza desde abajo */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Se mueve a su posición final */
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(360px);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animaciones específicas para cada frase si las quieres personalizar */
+#text1 {
+  bottom: 50px;
+  left: 30px;
+  background: rgba(255, 255, 255, 0.779);
+  color: var(--primary-color);
+  animation: slideIn 1.5s ease-out forwards;
+}
+
+#text2 {
+  top: 50px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.779);
+  color: var(--primary-color);
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+#text3 {
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+.container-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 32px;
+  flex-direction: column;
+}
+
+.container-title p {
+  width: 280px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+.btn-login {
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 20px;
+  border: 2px solid white;
+  background-color: rgba(240, 255, 255, 0);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  background-color: white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.card-benefit {
+  margin: 20px;
+  padding: 20px;
+  width: 270px;
+  color: white;
+  border-radius: 20px;
+  background-color: var(--orange-color);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+.card-benefit.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-benefit img {
+  width: 55px;
+  height: 55px;
+  margin-bottom: 10px;
+}
+
+.container-benefits h1 {
+  margin-top: 60px;
+  font-size: 50px;
+  margin-bottom: 30px;
+}

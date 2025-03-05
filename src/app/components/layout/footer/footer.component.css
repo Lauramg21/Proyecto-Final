@@ -1,0 +1,32 @@
+.footer {
+  font-size: 1.1rem;
+  background-color: black;
+  color: white;
+  padding: 1.1rem 0;
+  text-align: center;
+
+  a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding: 1rem 0; /* Reducir el padding en móviles */
+    font-size: 1rem; /* Reducir el tamaño de la fuente */
+  }
+}
+
+/* Responsivo para pantallas medianas (tabletas) */
+@media (max-width: 768px) {
+  .footer {
+    font-size: 1.1rem; /* Ajuste del tamaño de la fuente en tabletas */
+    padding: 1.5rem 0; /* Ajustar el padding */
+  }
+}

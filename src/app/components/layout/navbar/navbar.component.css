@@ -1,0 +1,103 @@
+/* Navbar fijo en la parte superior */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: end;
+  transition: background-color 0.3s, box-shadow 0.3s; /* Suaviza la transición */
+}
+
+.navbar-scrolled {
+  background-color: rgba(233, 233, 233, 0.959);
+  box-shadow: 0 4px 2px -2px gray;
+}
+
+.navbar-scrolled .nav-links a {
+  color: var(--primary-color);
+}
+
+.navbar-scrolled .logo {
+  content: url("../../../../assets/img/usuario3.png");
+}
+
+/* El resto del estilo sigue igual */
+.nav-links {
+  font-size: 1.2rem;
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin-right: 30px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.3s ease; /* Suaviza el aumento del tamaño */
+  cursor: pointer;
+}
+
+.navbar .nav-links li a:hover {
+  color: var(--hover-color); /* Aumenta el tamaño al 120% */
+}
+
+/* Cambios en el logo */
+.logo {
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  transition: all 0.3s ease; /* Suaviza la transición */
+}
+
+.logo:hover {
+  content: url("../../../../assets/img/usuario1.png");
+}
+/* Media Query para pantallas móviles */
+@media (max-width: 767px) {
+  .navbar .container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 10px;
+  }
+
+  .navbar .logo {
+    font-size: 1.3rem; /* Reduce el tamaño del logo en móviles */
+  }
+
+  .hamburgerContainer {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .navbar .nav-links {
+    font-size: 1rem; /* Reducir tamaño de los enlaces */
+    margin-top: 1rem;
+    display: none; /* Por defecto, los enlaces estarán ocultos */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar .nav-links.show {
+    display: flex; /* Mostrar los enlaces al activar el menú */
+  }
+
+  .navbar .hamburger {
+    visibility: visible;
+    display: block;
+    cursor: pointer;
+  }
+
+  .navbar .hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: black;
+    margin: 5px 0;
+    transition: 0.3s;
+  }
+}

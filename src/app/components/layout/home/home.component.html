@@ -1,0 +1,69 @@
+<div class="container-home">
+  <div class="carousel-container">
+    <div
+      *ngFor="let slide of slides; let i = index"
+      class="carousel-slide"
+      [class.active]="i === currentIndex"
+    >
+      <img [src]="slide.image" alt="Imagen Carrusel" class="carousel-image" />
+      <div class="carousel-caption" id="{{ slide.id }}">
+        <h2>{{ slide.caption }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-right">
+    <div class="container-title">
+      <h1>TeamMaster</h1>
+      <p>
+        Gestiona tus equipos con facilidad y lleva el control de cada partido
+      </p>
+      <button routerLink="/login" class="btn-login">Iniciar Sesion</button>
+    </div>
+  </div>
+</div>
+<div class="container-benefits">
+  <h1>BENEFICIOS</h1>
+  <div class="container-cards">
+    <div class="card-benefit">
+      <img src="assets/img/usuario1.png" alt="Beneficio 1" />
+      <h3>Gestion de equipos</h3>
+      <p>
+        Administra tus equipos de manera sencilla y centraliza el control de
+        partidos.
+      </p>
+    </div>
+    <div class="card-benefit">
+      <img src="assets/img/usuario1.png" alt="Beneficio 1" />
+      <h3>Gestion de equipos</h3>
+      <p>
+        Administra tus equipos de manera sencilla y centraliza el control de
+        partidos.
+      </p>
+    </div>
+    <div class="card-benefit">
+      <img src="assets/img/usuario1.png" alt="Beneficio 1" />
+      <h3>Gestion de equipos</h3>
+      <p>
+        Administra tus equipos de manera sencilla y centraliza el control de
+        partidos.
+      </p>
+    </div>
+    <div class="card-benefit">
+      <img src="assets/img/usuario1.png" alt="Beneficio 1" />
+      <h3>Gestion de equipos</h3>
+      <p>
+        Administra tus equipos de manera sencilla y centraliza el control de
+        partidos.
+      </p>
+    </div>
+    <div class="card-benefit">
+      <img src="assets/img/usuario1.png" alt="Beneficio 1" />
+      <h3>Gestion de equipos</h3>
+      <p>
+        Administra tus equipos de manera sencilla y centraliza el control de
+        partidos.
+      </p>
+    </div>
+  </div>
+</div>

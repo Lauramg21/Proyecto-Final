@@ -1,0 +1,16 @@
+<nav class="navbar" [ngClass]="{ 'navbar-scrolled': isScrolled }">
+  <div class="container">
+    <div class="hamburgerContainer">
+      <div class="hamburger" (click)="desplegarMenu()">
+        <img />
+      </div>
+    </div>
+
+    <ul class="nav-links" [class.show]="isMenuOpen">
+      <li><a href="#">Contacto</a></li>
+      <li>
+        <a href="#"><img class="logo" src="assets/img/usuario.png" /></a>
+      </li>
+    </ul>
+  </div>
+</nav>
