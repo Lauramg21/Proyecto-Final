@@ -1,24 +1,116 @@
-.container-login {
+.container-login{
   display: flex;
   height: 100vh;
+}
+
+.container-left{
+  width: 55%;
+  background-image: url(../../../../assets/img/login.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.card-login {
+h1{
+  color: white;
+  font-size: 100px;
+}
+h3{
+  color: white;
+  font-size: 20px;
+  width:400px;
+  text-align: center;
+}
+.container-right{
+  width: 45%;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+form {
+  margin-top: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 300px;
+  background-color: #e2e2e2; /* Blanco suave */
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+}
+
+
+/* Estilo base para el contenedor del formulario */
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  left: 5px;
+  border: 1px solid rgb(210, 210, 210);
+  border-radius: 10px;
+  outline: none;
+  background-color: #f9f9f9;
+  transition: padding 0.3s ease;
+}
+
+input:focus {
+  padding-top: 10px; /* Deja espacio para el label cuando está enfocado */
+}
+
+/* Estilo del label flotante */
+.floating-label {
+  position: absolute;
+  top: 50%;
+  left:5px;
+  font-size: 15px;
+  color: var(--primary-color); /* Color de texto por defecto */
+  transition: all 0.3s ease;
+  transform: translateY(-50%);
+  pointer-events: none; /* El label no puede ser clickeado */
+}
+
+/* Cuando el input tiene focus o tiene contenido, mueve el label hacia arriba */
+input:focus ~ .floating-label,
+input:not(:placeholder-shown) ~ .floating-label {
+  top: 0px; 
+  left: 10px;
+  font-weight: bold;
+  font-size: 0.8rem; 
+  color: var(--primary-color); 
+}
+
+/* Estilo del botón */
+button {
+  padding: 10px 20px;
   background-color: var(--primary-color);
+  font-weight: bold;
   color: white;
   border-radius: 20px;
-  padding: 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s;
 }
 
-.form-group {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
+button:hover {
+  background-color: var(--hover-color);
+
 }
+

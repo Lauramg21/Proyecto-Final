@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router'; // Importamos Router para manejar la ruta actual
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,27 +10,33 @@ import { CommonModule } from '@angular/common';
 })
 export class NavbarComponent implements OnInit {
   isMenuOpen = false;
-  isScrolled = false; // Nueva propiedad para el estado del scroll
+  isScrolled = false;
+  isHome = false; // Variable para saber si estamos en la página de inicio
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Inicializa el estado del navbar en función del scroll
-    this.checkScroll();
+    this.checkRoute(); // Verificar la ruta al iniciar
+    this.checkScroll(); // Verificar el scroll si estamos en la página de inicio
   }
 
-  // Detecta el desplazamiento y actualiza el estado
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     this.checkScroll();
   }
 
+  // Cambia el fondo del navbar si estamos en el Home y si se ha hecho scroll
   checkScroll() {
-    if (window.scrollY > 0) {
-      this.isScrolled = true; // Activa el fondo blanco si se ha desplazado
+    if (this.isHome) {
+      this.isScrolled = window.scrollY > 0; // Si se hace scroll, cambia el fondo
     } else {
-      this.isScrolled = false; // Mantiene el fondo transparente en la parte superior
+      this.isScrolled = true; // En otras páginas, el fondo siempre es blanco
     }
+  }
+
+  // Verifica si estamos en la página de inicio
+  checkRoute() {
+    this.isHome = this.router.url === '/'; // Si estamos en la página de inicio
   }
 
   desplegarMenu() {

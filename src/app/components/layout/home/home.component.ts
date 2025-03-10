@@ -1,7 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  QueryList,
+  ViewChildren,
+  HostListener,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { captureError } from 'rxjs/internal/util/errorContext';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +17,11 @@ import { captureError } from 'rxjs/internal/util/errorContext';
   styleUrls: ['./home.component.css'],
   imports: [CommonModule, RouterModule],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
+  @ViewChildren('benefitCard') benefitCards!: QueryList<ElementRef>;
 
   slides = [
-
     {
       type: 'image',
       image: 'assets/img/carrusel1.jpg',
@@ -39,7 +47,8 @@ export class HomeComponent implements OnInit {
       image: 'assets/img/carrusel4.jpg',
       caption: 'La tecnología al servicio de tu pasión por el deporte',
       id: 'text4',
-    },    {
+    },
+    {
       type: 'video',
       video: 'assets/videos/video.mp4',
       caption: 'Video promocional',
@@ -58,6 +67,27 @@ export class HomeComponent implements OnInit {
     if (this.slides[this.currentIndex].type === 'video') {
       this.setupVideoListener();
     }
+    this.checkScroll(); // Comprobar al inicio
+  }
+
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    this.checkScroll();
+  }
+
+  checkScroll(): void {
+    this.benefitCards.forEach((card) => {
+      const rect = card.nativeElement.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Si la tarjeta está visible en pantalla, la mostramos
+      if (rect.top < windowHeight - 100 && rect.bottom > 100) {
+        card.nativeElement.classList.add('visible');
+      } else {
+        // Si sale completamente de pantalla, se oculta para repetir la animación
+        card.nativeElement.classList.remove('visible');
+      }
+    });
   }
 
   startAutoSlide(): void {
@@ -67,25 +97,26 @@ export class HomeComponent implements OnInit {
   }
 
   nextSlide(): void {
-    // Si la diapositiva actual es un video, no cambiar hasta que termine
     if (this.slides[this.currentIndex].type === 'video') {
-      this.videoElement.nativeElement.play();
+      const video = this.videoElement.nativeElement;
+      video.muted = true;
+      video.play();
       return;
     }
 
-    this.currentIndex =
-      this.currentIndex === this.slides.length - 1 ? 0 : this.currentIndex + 1;
+    this.currentIndex = (this.currentIndex + 1) % this.slides.length;
 
     if (this.slides[this.currentIndex].type === 'video') {
-      setTimeout(() => this.setupVideoListener(), 500);
+      setTimeout(() => this.setupVideoListener(), 1000);
     }
   }
 
   setupVideoListener(): void {
     if (this.videoElement) {
       this.videoElement.nativeElement.onended = () => {
-        this.currentIndex =
-          this.currentIndex === this.slides.length - 1 ? 0 : this.currentIndex + 1;
+        this.videoElement.nativeElement.pause();
+        this.videoElement.nativeElement.currentTime = 0;
+        this.currentIndex = (this.currentIndex + 1) % this.slides.length;
       };
     }
   }
