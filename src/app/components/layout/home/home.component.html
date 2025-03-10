@@ -5,10 +5,24 @@
       class="carousel-slide"
       [class.active]="i === currentIndex"
     >
-      <img [src]="slide.image" alt="Imagen Carrusel" class="carousel-image" />
-      <div class="carousel-caption" id="{{ slide.id }}">
-        <h2>{{ slide.caption }}</h2>
-      </div>
+      <ng-container *ngIf="slide.type === 'image'">
+        <img [src]="slide.image" alt="Imagen Carrusel" class="carousel-image" />
+        <div class="carousel-caption" id="{{ slide.id }}">
+          <h2>{{ slide.caption }}</h2>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="slide.type === 'video'">
+        <video
+          #videoElement
+          [src]="slide.video"
+          class="carousel-video"
+          autoplay
+          muted
+          playsinline
+          (ended)="nextSlide()"
+        ></video>
+      </ng-container>
     </div>
   </div>
 
@@ -26,43 +40,38 @@
   <h1>BENEFICIOS</h1>
   <div class="container-cards">
     <div class="card-benefit">
-      <img src="assets/img/usuario1.png" alt="Beneficio 1" />
-      <h3>Gestion de equipos</h3>
+      <img src="assets/img/gestion.png" alt="Beneficio 1" />
+      <h3>Gestión</h3>
       <p>
-        Administra tus equipos de manera sencilla y centraliza el control de
-        partidos.
+        Administra equipos, jugadores y partidos en un solo lugar.
       </p>
     </div>
     <div class="card-benefit">
-      <img src="assets/img/usuario1.png" alt="Beneficio 1" />
-      <h3>Gestion de equipos</h3>
+      <img src="assets/img/analisys.png" alt="Beneficio 1" />
+      <h3>Análisis</h3>
       <p>
-        Administra tus equipos de manera sencilla y centraliza el control de
-        partidos.
+        Estadísticas en tiempo real para mejorar el rendimiento.
       </p>
     </div>
     <div class="card-benefit">
-      <img src="assets/img/usuario1.png" alt="Beneficio 1" />
-      <h3>Gestion de equipos</h3>
+      <img src="assets/img/sports.png" alt="Beneficio 1" />
+      <h3>Multideporte</h3>
       <p>
-        Administra tus equipos de manera sencilla y centraliza el control de
-        partidos.
+        Administra equipos de diferentes disciplinas en un solo lugar.      
       </p>
     </div>
     <div class="card-benefit">
-      <img src="assets/img/usuario1.png" alt="Beneficio 1" />
-      <h3>Gestion de equipos</h3>
+      <img src="assets/img/file.png" alt="Beneficio 1" />
+      <h3>Historial</h3>
       <p>
-        Administra tus equipos de manera sencilla y centraliza el control de
-        partidos.
+        Consulta el rendimiento de jugadores y clubes a lo largo del tiempo.
       </p>
     </div>
     <div class="card-benefit">
-      <img src="assets/img/usuario1.png" alt="Beneficio 1" />
-      <h3>Gestion de equipos</h3>
+      <img src="assets/img/web.png" alt="Beneficio 1" />
+      <h3>Accesibilidad</h3>
       <p>
-        Administra tus equipos de manera sencilla y centraliza el control de
-        partidos.
+        Plataforma 100% online y accesible desde cualquier dispositivo.
       </p>
     </div>
   </div>
