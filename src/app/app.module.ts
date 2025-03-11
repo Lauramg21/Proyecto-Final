@@ -8,6 +8,8 @@ import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { LoginComponent } from './components/layout/login/login.component';
 import { Navbar2Component } from './components/layout/navbar2/navbar2.component';
+import { DashboardComponent } from './components/layout/dashboard/dashboard.component';
+import { NavbarDashboardComponent } from './components/layout/navbar-dashboard/navbar-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,7 +17,9 @@ import { Navbar2Component } from './components/layout/navbar2/navbar2.component'
     NavbarComponent,
     FooterComponent,
     LoginComponent,
-    Navbar2Component
+    Navbar2Component,
+    DashboardComponent,
+    NavbarDashboardComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   bootstrap: [AppComponent],

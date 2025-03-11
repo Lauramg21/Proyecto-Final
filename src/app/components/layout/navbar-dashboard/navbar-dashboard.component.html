@@ -1,0 +1,20 @@
+<nav class="navbar">
+  <div class="container">
+    <div class="hamburgerContainer">
+      <div class="hamburger" (click)="desplegarMenu()">
+        <img />
+      </div>
+    </div>
+    <div></div>
+    <ul class="nav-links" [class.show]="isMenuOpen">
+      <li><a href="#">Contacto</a></li>
+            <li>
+        <span class="user-role">{{ rol }}</span> 
+      </li>
+      <li>
+        <a href="#"><img class="logo" src="assets/img/usuario3.png" /></a>
+      </li>
+
+    </ul>
+  </div>
+</nav>

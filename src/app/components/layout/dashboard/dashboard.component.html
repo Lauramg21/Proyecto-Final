@@ -1,0 +1,15 @@
+<div class="dashboard">
+  <h1>PANEL DE GESTIÓN</h1>
+
+  <!-- Solo Administrador -->
+  <div class="container-buttons">
+    <button class="admin" *ngIf="rol === '0'"><img src="assets/img/administrador.png"/>Administrar Usuarios</button>
+    <button><img src="assets/img/deportes-con-balones.png"/>Secciones</button>
+    <button><img src="assets/img/camiseta.png"/>Equipos</button>
+    <button><img src="assets/img/equipo.png"/>Jugadores</button>
+    <button><img src="assets/img/campo-de-futbol.png"/>Partidos</button>
+    <button><img src="assets/img/accion.png"/>Acciones</button>
+    <button class="asignar" *ngIf="rol != '3'"><img src="assets/img/plan-de-accion.png"/>Asignar Acciones</button>
+  </div>
+
+</div>

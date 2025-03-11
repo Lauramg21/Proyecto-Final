@@ -1,100 +1,58 @@
 const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
 const mysql = require("mysql2");
-
-// Configuración de Express
+const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const app = express();
-const port = 3030; // Puedes cambiar el puerto si es necesario
+const port = 3000;
 
-// Middleware
+// Configurar CORS para que Angular pueda acceder
 app.use(cors());
-app.use(bodyParser.json());
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
+// Agregar este middleware para parsear las solicitudes JSON
+app.use(express.json()); // Esto es crucial para acceder a req.body
 
-// Conexión a la base de datos MariaDB
-const db = mysql.createConnection({
-  host: "localhost", // Cambia esto por tu configuración de base de datos
-  user: "tu-usuario", // Tu usuario de MariaDB
-  password: "tu-contraseña", // Tu contraseña de MariaDB
-  database: "tu-base-de-datos", // Nombre de la base de datos
+// Crear conexión a la base de datos MariaDB
+const pool = mysql.createPool({
+  host: "82.223.102.153",
+  user: "2DAMClubBaloncesto",
+  password: "2DAMClubBaloncesto9876", // Usa la contraseña de tu base de datos
+  database: "2DAMClubBaloncesto",
 });
 
-// Verificar si la conexión es exitosa
-db.connect((err) => {
-  if (err) {
-    console.error("Error de conexión a la base de datos:", err);
-  } else {
-    console.log("Conectado a la base de datos");
-  }
-});
-
-// Ruta de login (recibe las credenciales del frontend)
 app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
 
-  // Consulta a la base de datos para verificar las credenciales
-  const query = "SELECT * FROM usuarios WHERE email = ? AND password = ?";
-  db.query(query, [email, password], (err, result) => {
-    if (err) {
-      console.error("Error al consultar la base de datos:", err);
-      return res.status(500).json({ error: "Error en la base de datos" });
+  // Imprimir el cuerpo de la solicitud para verificar que los datos se están enviando correctamente
+  console.log("Cuerpo de la solicitud:", req.body);
+
+  // Comprobar si el correo existe en la base de datos
+  pool.query(
+    "SELECT * FROM Usuarios WHERE User = ? AND Password = ?",
+    [email, password],
+    (err, results) => {
+      if (err)
+        return res.status(500).json({ message: "Error en la base de datos" });
+
+      if (results.length === 0) {
+        return res.status(401).json({ message: "Credenciales incorrectas" });
+      }
+
+      const user = results[0];
+
+      if (user.Password !== password) {
+        return res.status(401).json({ message: "Credenciales incorrectas" });
+      }
+
+      const token = jwt.sign(
+        { id: user.id, email: user.User, rol: user.rol },
+        "secreta", // Secreto para firmar el token
+        { expiresIn: "1h" } // El token expirará en 1 hora
+      );
+
+      // Enviar el token y el rol del usuario
+      res.json({ token, rol: user.rol });
     }
-
-    if (result.length === 0) {
-      return res.status(401).json({ message: "Credenciales incorrectas" });
-    }
-
-    // Si las credenciales son correctas, devuelve el rol del usuario
-    const user = result[0];
-    res.json({
-      token: "token-de-autenticacion", // Aquí deberías generar un token JWT o similar
-      rol: user.rol, // Devuelves el rol del usuario
-    });
-  });
-});
-
-// Iniciar el servidor
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
-});
-
-
-// Verificar si la conexión es exitosa
-db.connect((err) => {
-  if (err) {
-    console.error("Error de conexión a la base de datos:", err);
-  } else {
-    console.log("Conectado a la base de datos");
-  }
-});
-
-// Ruta de login (recibe las credenciales del frontend)
-app.post("/api/login", (req, res) => {
-  const { email, password } = req.body;
-
-  // Consulta a la base de datos para verificar las credenciales
-  const query = "SELECT * FROM usuarios WHERE email = ? AND password = ?";
-  db.query(query, [email, password], (err, result) => {
-    if (err) {
-      console.error("Error al consultar la base de datos:", err);
-      return res.status(500).json({ error: "Error en la base de datos" });
-    }
-
-    if (result.length === 0) {
-      return res.status(401).json({ message: "Credenciales incorrectas" });
-    }
-
-    // Si las credenciales son correctas, devuelve el rol del usuario
-    const user = result[0];
-    res.json({
-      token: "token-de-autenticacion", // Aquí deberías generar un token JWT o similar
-      rol: user.rol, // Devuelves el rol del usuario
-    });
-  });
+  );
 });
 
 // Iniciar el servidor
