@@ -1,0 +1,261 @@
+/* Estilos para la tabla */
+h2{
+  color: var(--orange-color);
+  font-weight: bold;
+  font-size: 30px;
+  margin-top: 50px;
+}
+
+.container-top{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.addUser{
+  margin-left: 620px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addUser button{
+  height: 40px;
+  width: 90px;
+    cursor: pointer;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2cba5b;
+  color: white;
+  border: #1c763a solid 1px;
+    transition: all 0.3s ease; /* Suaviza la transición */
+
+}
+
+.addUser button:hover{
+    transform: scale(1.05); 
+}
+
+.container-table{
+  margin-top: 60px;
+  display: flex;
+  justify-content: top;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 30px;
+  min-height: 100vh;
+}
+
+i{
+  font-size: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.edit, .delete{
+  background: none;
+  border: none;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.filtro{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: start;
+  align-items: center;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.filtro p{
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+label{
+  font-size: 13px;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+.modal-content {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+}
+
+.selects{
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.campo{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  width: 100%;
+}
+
+select, input{
+  width: 100%;
+  padding: 2px;
+}
+.campos{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 200px;
+}
+
+.campos label{
+  margin-top: 10px;
+}
+
+.campos input, .campos select{
+  margin-top: 2px;
+  background-color: #dddddd8e;
+  padding: 5px;
+  border-radius: 5px;
+  border: 0.1px solid;
+}
+
+.title{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.title span{
+  margin-left: -60px;
+}
+.title h3{
+  margin-top: 10px;
+  margin-left: 50px;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 23px;
+}
+
+.botones-modal{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.botones-modal button{
+  margin:5px;
+  border-radius: 10px;
+  background-color: rgb(56, 150, 56);
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  cursor: pointer;
+  border: rgb(30, 91, 30), solid, 2px;
+}
+.close {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.search-box {
+  padding: 5px;
+  width: 150px;
+}
+
+.botones {
+  display: flex;
+  gap: 5px;
+}
+
+.botones{
+  display: flex;
+  justify-content: center;
+  height: 50px;
+}
+th {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+td {
+  background-color: #f9f9f9;
+}
+
+
+
+/* Estilos para los botones de paginación */
+.pagination-controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination-controls button {
+  padding: 10px 15px;
+  margin: 0 5px;
+  background-color: var(--orange-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination-controls button:hover {
+  background-color: var(--primary-color);
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls button.active {
+  background-color: var(--primary-color);
+}

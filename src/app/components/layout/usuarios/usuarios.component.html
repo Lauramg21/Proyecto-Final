@@ -1,0 +1,75 @@
+<div class="container-table">
+  <h2>Lista de Usuarios</h2>
+  
+  <div class="container-top">
+  <div class="filtro">
+    <p>Buscar: </p>
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar..." class="search-box">
+  </div>
+  <!-- Botón de Añadir -->
+  <div class="addUser">
+    <button (click)="openModal()">Añadir +</button>
+  </div>
+</div>
+<!-- Tabla de usuarios -->
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Password</th>
+      <th>Rol</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usuario of filteredUsuarios">
+      <td>{{ usuario.User }}</td>
+      <td>{{ usuario.Password }}</td>
+      <td>{{ getRol(usuario.rol) }}</td>
+      <td>{{ getEstado(usuario.Estado) }}</td>
+      <div class="botones">
+        <button class="edit" (click)="openModal(usuario)">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="delete" (click)="deleteUser(usuario)">
+          <i class="fas fa-trash" style="color: red"></i>
+        </button>
+        </div>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<!-- Modal para editar o añadir usuario -->
+<div class="modal" [ngClass]="{ 'show': isEditModalOpen }">
+  <div class="modal-content">
+    <div class="title">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>{{ isAddMode ? 'Añadir Usuario' : 'Editar Usuario' }}</h3> <!-- Título dinámico -->
+    </div>
+    <div class="campos">
+      <div class="campo">
+        <label>Usuario:</label>
+        <input type="text" [(ngModel)]="selectedUser.User">
+      </div>
+      <div class="campo">
+        <label>Contraseña:</label>
+        <input type="password" [(ngModel)]="selectedUser.Password">
+      </div>
+      <div class="campo">
+        <label>Rol:</label>
+        <select [(ngModel)]="selectedUser.rol">
+          <option value="admin">Admin</option>
+          <option value="user">Usuario</option>
+          <option value="lectura">Lectura</option>
+        </select>
+      </div>
+    </div>
+    <div class="botones-modal">
+      <button class="save" (click)="saveUser()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+</div>

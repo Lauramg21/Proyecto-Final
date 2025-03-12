@@ -1,6 +1,6 @@
 <app-navbar *ngIf="isHomePage"></app-navbar> 
 <app-navbar2 *ngIf="isLoginPage"></app-navbar2>  
-<app-navbar-dashboard *ngIf="isDashboardPage"></app-navbar-dashboard>
+<app-navbar-dashboard *ngIf="!isHomePage && !isLoginPage"></app-navbar-dashboard> <!-- NavbarDashboard en el resto de las páginas -->
 <router-outlet></router-outlet>
 
 <app-footer></app-footer>

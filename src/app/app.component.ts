@@ -19,7 +19,6 @@ import { NavbarDashboardComponent } from './components/layout/navbar-dashboard/n
 export class AppComponent implements OnInit {
   isHomePage: boolean = false;
   isLoginPage: boolean = false;
-  isDashboardPage: boolean = false;
   constructor(private router: Router) {}
 
   ngOnInit() {
@@ -30,7 +29,6 @@ export class AppComponent implements OnInit {
         const currentUrl = this.router.url;
         this.isHomePage = this.router.url === '/';
         this.isLoginPage = currentUrl.startsWith('/login'); 
-        this.isDashboardPage = currentUrl.startsWith('/dashboard');
       });
   }
 }

@@ -1,0 +1,75 @@
+<div class="container-table">
+  <h2>Listado Equipos</h2>
+  
+  <div class="container-top">
+  <div class="filtro">
+    <p>Buscar: </p>
+<input type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterEquipos()" placeholder="Buscar..." class="search-box">
+  </div>
+  <!-- Botón de Añadir -->
+  <div class="addUser">
+    <button (click)="openModal()">Añadir +</button>
+  </div>
+</div>
+<!-- Tabla de usuarios -->
+<table>
+  <thead>
+    <tr>
+      <th>Seccion</th>
+      <th>Equipo</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let equipo of paginatedEquipos">
+  <td>{{ getSeccionNombre(equipo.IdSeccion) }}</td>
+  <td>{{ equipo.Equipo }}</td>
+  <td>{{ getEstado(equipo.Estado) }}</td>
+  <div class="botones">
+    <button class="edit" (click)="openModal(equipo)">
+      <i class="fas fa-edit"></i>
+    </button>
+    <button class="delete" (click)="deleteEquipo(equipo)">
+      <i class="fas fa-trash" style="color: red"></i>
+    </button>
+  </div>
+</tr>
+</tbody>
+</table>
+
+<div class="pagination-controls">
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Anterior</button>
+    <button *ngFor="let page of [].constructor(totalPages); let i = index" 
+      (click)="changePage(i + 1)" [class.active]="currentPage === i + 1">
+      {{ i + 1 }}
+    </button>
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Siguiente</button>
+  </div>
+</div>
+
+<!-- Modal para editar o añadir usuario -->
+<div class="modal" [ngClass]="{ 'show': isEditModalOpen }">
+  <div class="modal-content">
+    <div class="title">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>{{ isAddMode ? 'Añadir Equipo' : 'Editar Equipo' }}</h3> <!-- Título dinámico -->
+    </div>
+    <div class="campos">
+  <div class="campo">
+    <label>Equipo:</label>
+    <input type="text" [(ngModel)]="selectedEquipo.Equipo">
+  </div>
+  <div class="campo">
+    <label>Sección:</label>
+    <select [(ngModel)]="selectedEquipo.SeccionId">
+      <option *ngFor="let seccion of secciones" [value]="seccion.Id">{{ seccion.Seccion }}</option>
+    </select>
+  </div>
+</div>
+
+    <div class="botones-modal">
+      <button class="save" (click)="saveEquipo()">Guardar</button>
+    </div>
+  </div>
+</div>
+

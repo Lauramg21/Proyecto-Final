@@ -3,9 +3,11 @@
 
   <!-- Solo Administrador -->
   <div class="container-buttons">
-    <button class="admin" *ngIf="rol === '0'"><img src="assets/img/administrador.png"/>Administrar Usuarios</button>
-    <button><img src="assets/img/deportes-con-balones.png"/>Secciones</button>
-    <button><img src="assets/img/camiseta.png"/>Equipos</button>
+    <button routerLink="/users" routerLinkActive="active" class="admin" *ngIf="rol === '0'">
+      <img src="assets/img/administrador.png" />Administrar Usuarios
+    </button>
+    <button routerLink="/secciones"><img src="assets/img/deportes-con-balones.png"/>Secciones</button>
+    <button routerLink="/equipos"><img src="assets/img/camiseta.png"/>Equipos</button>
     <button><img src="assets/img/equipo.png"/>Jugadores</button>
     <button><img src="assets/img/campo-de-futbol.png"/>Partidos</button>
     <button><img src="assets/img/accion.png"/>Acciones</button>

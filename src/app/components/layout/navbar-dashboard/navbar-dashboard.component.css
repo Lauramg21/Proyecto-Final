@@ -1,6 +1,6 @@
 /* Navbar fijo en la parte superior */
 .navbar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -18,8 +18,6 @@
   margin-right: -20px;
 }
 
-
-/* El resto del estilo sigue igual */
 .nav-links {
   font-size: 1.2rem;
   list-style: none;
