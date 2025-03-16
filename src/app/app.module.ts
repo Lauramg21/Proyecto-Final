@@ -14,7 +14,11 @@ import { NavbarDashboardComponent } from './components/layout/navbar-dashboard/n
 import { UsuariosComponent } from './components/layout/usuarios/usuarios.component';
 import { SeccionesComponent } from './components/layout/secciones/secciones.component';
 import { EquiposComponent } from './components/layout/equipos/equipos.component';
-
+import { JugadoresComponent } from './components/layout/jugadores/jugadores.component';
+import { PartidosComponent } from './components/layout/partidos/partidos.component';
+import { AccionesComponent } from './components/layout/acciones/acciones.component';
+import { EstadisticasComponent } from './components/layout/estadisticas/estadisticas.component';
+import { AsignarAccionComponent } from './components/layout/asignar-accion/asignar-accion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +32,12 @@ import { EquiposComponent } from './components/layout/equipos/equipos.component'
     RouterModule,
     UsuariosComponent,
     SeccionesComponent,
-    EquiposComponent
+    EquiposComponent,
+    JugadoresComponent,
+    PartidosComponent,
+    AccionesComponent,
+    EstadisticasComponent,
+    AsignarAccionComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   bootstrap: [AppComponent],

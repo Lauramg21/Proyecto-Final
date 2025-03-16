@@ -3,7 +3,7 @@ h2{
   color: var(--orange-color);
   font-weight: bold;
   font-size: 30px;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .container-top{
@@ -11,10 +11,11 @@ h2{
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 }
 
 .addUser{
-  margin-left: 620px;
+  margin-left: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,9 +82,7 @@ th, td {
   width: 100%;
   justify-content: start;
   align-items: center;
-
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .filtro p{
@@ -351,11 +350,13 @@ td {
   /* Pantallas muy pequeñas, como teléfonos en modo vertical */
   table {
     width: 100%;
+    font-size: 9px;
   }
 
   .filtro {
     flex-direction: column;
     align-items: flex-start;
+    width: 200px;
   }
 
   .botones{

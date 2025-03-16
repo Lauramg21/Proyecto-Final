@@ -2,14 +2,14 @@
   <div class="container">
     <div class="hamburgerContainer">
       <div class="hamburger" (click)="desplegarMenu()">
-        <img />
+        <img class="lista" src="assets/img/lista.png"/>
       </div>
     </div>
 
     <ul class="nav-links" [class.show]="isMenuOpen">
-      <li><a href="#">Contacto</a></li>
+      <li><a href="#contacto" (click)="desplegarMenu()">Contacto</a></li>
       <li>
-        <a href="#"><img class="logo" src="assets/img/usuario.png" /></a>
+        <a href="/login"><img class="logo" src="assets/img/usuario.png" /></a>
       </li>
     </ul>
   </div>

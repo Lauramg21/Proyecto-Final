@@ -1,0 +1,40 @@
+<div class="container-global">
+<div class="form-container">
+  <h3> Añadir Estadística </h3>
+
+  <form (ngSubmit)="saveEstadistica()">
+    <div class="campos">
+      <div class="campo">
+        <label for="partido">Partido:</label>
+        <select id="partido" [(ngModel)]="selectedEstadistica.IdPartido" name="partido" required>
+          <option *ngFor="let partido of partidos" [value]="partido.Id">
+            {{ getPartidoNombre(partido.Id) }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="campo">
+        <label for="jugador">Jugador:</label>
+        <select id="jugador" [(ngModel)]="selectedEstadistica.IdJugador" name="jugador" required>
+          <option *ngFor="let jugador of jugadores" [value]="jugador.Id">
+            {{ jugador.Jugador }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="campo">
+        <label for="accion">Acción:</label>
+        <select id="accion" [(ngModel)]="selectedEstadistica.IdAccion" name="accion" required>
+          <option *ngFor="let accion of acciones" [value]="accion.Id">
+            {{ accion.Accion }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="botones-form">
+      <button type="submit" class="save" >Guardar</button>
+    </div>
+  </form>
+</div>
+</div>

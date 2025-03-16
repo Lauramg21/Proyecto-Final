@@ -8,7 +8,7 @@
   </div>
   <!-- Botón de Añadir -->
   <div class="addUser">
-    <button (click)="openModal()">Añadir +</button>
+    <button (click)="openModal()" *ngIf="rol === '0' || rol === '1'">Añadir +</button>
   </div>
 </div>
 <!-- Tabla de usuarios -->
@@ -16,14 +16,12 @@
   <thead>
     <tr>
       <th>Seccion</th>
-      <th>Estado</th>
     </tr>
   </thead>
   <tbody>
   <tr *ngFor="let seccion of paginatedSecciones">
     <td>{{ seccion.Seccion }}</td>
-    <td>{{ getEstado(seccion.Estado) }}</td>
-    <div class="botones">
+    <div class="botones" *ngIf="rol === '0' || rol === '1'">
       <button class="edit" (click)="openModal(seccion)">
         <i class="fas fa-edit"></i>
       </button>

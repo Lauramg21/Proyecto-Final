@@ -14,6 +14,8 @@ import { HttpClient } from '@angular/common/http';
 export class LoginComponent {
   email: string = '';
   password: string = '';
+  errorMessage: string = ''; // Variable para mostrar mensajes de error
+  successMessage: string = ''; // Variable para mostrar mensaje de éxito
 
   constructor(
     private authService: AuthService,
@@ -22,8 +24,12 @@ export class LoginComponent {
   ) {}
 
   onSubmit() {
+    // Limpiar los mensajes anteriores
+    this.errorMessage = '';
+    this.successMessage = '';
+
     if (!this.email.trim() || !this.password.trim()) {
-      console.error('Email y contraseña son obligatorios');
+      this.errorMessage = 'Por favor, ingrese todos los campos.';
       return;
     }
 
@@ -34,13 +40,19 @@ export class LoginComponent {
         if (response?.token) {
           localStorage.setItem('token', response.token);
           localStorage.setItem('rol', response.rol);
+          this.successMessage = 'Login exitoso, redirigiendo...';
           console.log('Login exitoso');
-          this.router.navigate(['/dashboard']); 
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 1500); // Redirige después de 1.5 segundos para mostrar el mensaje de éxito
         } else {
+          this.errorMessage = 'Correo electrónico o contraseña incorrectos.';
           console.error('Error en la autenticación: Respuesta inválida');
         }
       },
       (error) => {
+        this.errorMessage =
+          'Contraseña o correo incorrecto';
         console.error('Error de autenticación:', error);
       }
     );

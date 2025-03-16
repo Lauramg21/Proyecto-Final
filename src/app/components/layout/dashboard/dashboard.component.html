@@ -8,10 +8,12 @@
     </button>
     <button routerLink="/secciones"><img src="assets/img/deportes-con-balones.png"/>Secciones</button>
     <button routerLink="/equipos"><img src="assets/img/camiseta.png"/>Equipos</button>
-    <button><img src="assets/img/equipo.png"/>Jugadores</button>
-    <button><img src="assets/img/campo-de-futbol.png"/>Partidos</button>
-    <button><img src="assets/img/accion.png"/>Acciones</button>
-    <button class="asignar" *ngIf="rol != '3'"><img src="assets/img/plan-de-accion.png"/>Asignar Acciones</button>
+    <button routerLink="/jugadores"><img src="assets/img/equipo.png"/>Jugadores</button>
+    <button routerLink="/partidos"><img src="assets/img/campo-de-futbol.png"/>Partidos</button>
+    <button routerLink="/acciones"><img src="assets/img/accion.png"/>Acciones</button>
+    <button routerLink="/estadisticas"><img src="assets/img/grafica.png"/>Estadísticas</button>
+    <button routerLink="/asignar" class="asignar" *ngIf="rol != '2'"><img src="assets/img/plan-de-accion.png"/>Asignar Acción</button>
+
   </div>
 
 </div>

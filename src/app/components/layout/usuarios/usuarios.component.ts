@@ -68,11 +68,6 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  // Función para convertir el valor de Estado bit(1) a su descripción
-  getEstado(estado: number): string {
-    return estado === 1 ? 'Activo' : 'Inactivo';
-  }
-
   loadUsuarios(): void {
     this.tableService.getEntities('usuarios').subscribe((response) => {
       this.usuarios = response;

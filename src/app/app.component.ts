@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         const currentUrl = this.router.url;
-        this.isHomePage = this.router.url === '/';
+this.isHomePage = this.router.url.split('#')[0] === '/';
         this.isLoginPage = currentUrl.startsWith('/login'); 
       });
   }

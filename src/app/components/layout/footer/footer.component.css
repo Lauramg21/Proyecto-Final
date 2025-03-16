@@ -16,17 +16,73 @@
   }
 }
 
-@media (max-width: 600px) {
-  .footer {
-    padding: 1rem 0; /* Reducir el padding en móviles */
-    font-size: 1rem; /* Reducir el tamaño de la fuente */
-  }
+.container{
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+      margin-bottom: 5px;
+
 }
 
-/* Responsivo para pantallas medianas (tabletas) */
-@media (max-width: 768px) {
-  .footer {
-    font-size: 1.1rem; /* Ajuste del tamaño de la fuente en tabletas */
-    padding: 1.5rem 0; /* Ajustar el padding */
+.logo{
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+}
+
+.info{
+  display: flex;
+  margin-bottom: 25px;
+  margin-top: 5px;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+
+.info2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info2 img{
+  margin-right: 10px;
+}
+
+
+@media (max-width: 767px) {
+  /* Contenedor principal del footer */
+  .footer .container {
+    flex-direction: column; /* Coloca los elementos en columna */
+    align-items: center;
+  }
+
+  /* Información del footer */
+  .footer .info {
+    flex-direction: column; /* Coloca los elementos de información en columna */
+    align-items: center;
+  }
+
+  .footer .info2 {
+    text-align: center;
+    margin: 10px 0; /* Espaciado entre los enlaces */
+  }
+
+  .footer p {
+    font-size: 12px;
+    margin-top: 20px; /* Asegura un buen espaciado entre el contenido y el copyright */
+  }
+
+  .footer .logo {
+    width: 20px;
+    height: 20px; /* Ajuste de tamaño para las pantallas pequeñas */
+    margin-right: 8px;
   }
 }

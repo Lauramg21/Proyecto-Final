@@ -1,0 +1,131 @@
+<div class="container-table">
+  <h2>Listado de Estadísticas</h2>
+
+      <div class="container-top">
+
+            <div class="filtro">
+      <p>Partido:</p>
+      <select [(ngModel)]="selectedPartido" (change)="filterEstadisticas()">
+        <option [value]="''">Todos</option>
+        <option *ngFor="let partido of partidos" [value]="partido.Id">
+          {{ getPartidoNombre(partido.Id) }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filtro">
+      <p>Jugador:</p>
+      <select [(ngModel)]="selectedJugador" (change)="filterEstadisticas()">
+        <option [value]="''">Todos</option>
+        <option *ngFor="let jugador of jugadores" [value]="jugador.Id">
+          {{ jugador.Jugador }}
+        </option>
+      </select>
+    </div>
+
+        <div class="filtro">
+      <p>Accion:</p>
+      <select [(ngModel)]="selectedAccion" (change)="filterEstadisticas()">
+        <option [value]="''">Todos</option>
+        <option *ngFor="let accion of acciones" [value]="accion.Id">
+          {{ accion.Accion }}
+        </option>
+      </select>
+    </div>
+
+    <div class="addUser">
+      <button (click)="openModal()" *ngIf="rol === '0' || rol === '1'">Añadir +</button>
+    </div>
+  </div>
+
+  <!-- Tabla de Estadísticas -->
+  <table>
+    <thead>
+      <tr>
+        <th>Partido</th>
+        <th>Jugador</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let estadistica of paginatedEstadisticas">
+        <td>{{ getPartidoNombre(estadistica.IdPartido) }}</td>
+        <td>{{ getJugadorNombre(estadistica.IdJugador) }}</td>
+        <td>{{ getAccionDescripcion(estadistica.IdAccion) }}</td>
+        <div class="botones" *ngIf="rol === '0' || rol === '1'">
+          <button class="edit" (click)="openModal(estadistica)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="delete" (click)="deleteEstadistica(estadistica)">
+            <i class="fas fa-trash" style="color: red"></i>
+          </button>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Paginación -->
+  <div class="pagination-controls">
+    <button
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Anterior
+    </button>
+    <button
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      (click)="changePage(i + 1)"
+      [class.active]="currentPage === i + 1"
+    >
+      {{ i + 1 }}
+    </button>
+    <button
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Siguiente
+    </button>
+  </div>
+</div>
+
+
+<!-- Modal para añadir/editar Acción -->
+<div class="modal" [ngClass]="{ show: isEditModalOpen }">
+  <div class="modal-content">
+    <div class="title">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>{{ isAddMode ? "Añadir Estadística" : "Editar Estadística" }}</h3>
+    </div>
+
+    <div class="campos">
+      <div class="campo">
+        <label>Partido:</label>
+        <select [(ngModel)]="selectedEstadistica.IdPartido">
+          <option *ngFor="let partido of partidos" [value]="partido.Id">
+            {{ getPartidoNombre(partido.Id) }}
+          </option>
+        </select>
+      </div>
+      <div class="campo">
+        <label>Jugador:</label>
+        <select [(ngModel)]="selectedEstadistica.IdJugador">
+          <option *ngFor="let jugador of jugadores" [value]="jugador.Id">
+            {{ jugador.Jugador }}
+          </option>
+        </select>
+      </div>
+      <div class="campo">
+        <label>Acción:</label>
+        <select [(ngModel)]="selectedEstadistica.IdAccion">
+          <option *ngFor="let accion of acciones" [value]="accion.Id">
+            {{ accion.Accion }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="botones-modal">
+      <button class="save" (click)="saveEstadistica()">Guardar</button>
+    </div>
+  </div>
+</div>

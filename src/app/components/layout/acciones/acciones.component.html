@@ -1,0 +1,84 @@
+<div class="container-table">
+  <h2>Listado Acciones</h2>
+
+  <div class="container-top">
+    <div class="filtro">
+      <p>Buscar: </p>
+      <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterAcciones()" placeholder="Buscar..." class="search-box">
+    </div>
+
+    <div class="filtro">
+      <p>Sección: </p>
+      <select [(ngModel)]="selectedSeccion" (change)="filterAcciones()">
+        <option [value]="''">Todas</option>
+        <option *ngFor="let seccion of secciones" [value]="seccion.Id">
+          {{ seccion.Seccion }}
+        </option>
+      </select>
+    </div>
+
+    <div class="addUser">
+      <button (click)="openModal()" *ngIf="rol === '0' || rol === '1'">Añadir +</button>
+    </div>
+  </div>
+
+  <!-- Tabla de Acciones -->
+  <table>
+    <thead>
+      <tr>
+        <th>Sección</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let accion of paginatedAcciones">
+        <td>{{ getSeccionNombre(accion.Seccion) }}</td>
+        <td>{{ accion.Accion }}</td>
+        <div class="botones" *ngIf="rol === '0' || rol === '1'">
+          <button class="edit" (click)="openModal(accion)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="delete" (click)="deleteAccion(accion)">
+            <i class="fas fa-trash" style="color: red"></i>
+          </button>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination-controls">
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Anterior</button>
+    <button *ngFor="let page of [].constructor(totalPages); let i = index" 
+      (click)="changePage(i + 1)" [class.active]="currentPage === i + 1">
+      {{ i + 1 }}
+    </button>
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Siguiente</button>
+  </div>
+</div>
+
+<!-- Modal para añadir/editar Acción -->
+<div class="modal" [ngClass]="{ 'show': isEditModalOpen }">
+  <div class="modal-content">
+    <div class="title">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>{{ isAddMode ? 'Añadir Acción' : 'Editar Acción' }}</h3>
+    </div>
+    
+    <div class="campos">
+      <div class="campo">
+        <label>Acción:</label>
+        <input type="text" [(ngModel)]="selectedAccion.Accion">
+      </div>
+      <div class="campo">
+        <label>Sección:</label>
+        <select [(ngModel)]="selectedAccion.Seccion">
+          <option *ngFor="let seccion of secciones" [value]="seccion.Id">{{ seccion.Seccion }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="botones-modal">
+      <button class="save" (click)="saveAccion()">Guardar</button>
+    </div>
+  </div>
+</div>

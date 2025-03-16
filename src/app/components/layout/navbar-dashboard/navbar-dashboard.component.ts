@@ -9,24 +9,39 @@ import { CommonModule } from '@angular/common';
 })
 export class NavbarDashboardComponent implements OnInit {
   rol: string = ''; // Variable para almacenar el rol del usuario
-
+  isMenuOpen: boolean = false; // Variable para el menú de navegación
+  isDropdownOpen: boolean = false;
   ngOnInit() {
     this.rol = localStorage.getItem('rol') || 'Desconocido';
 
-    if(this.rol === '0'){
-      this.rol='Admin';
-    }else if(this.rol === '1'){
-      this.rol='Usuario';
-    }else{
-      this.rol='Usuario Lectura'
+    if (this.rol === '0') {
+      this.rol = 'Admin';
+    } else if (this.rol === '1') {
+      this.rol = 'Usuario';
+    } else {
+      this.rol = 'Lectura';
     }
   }
 
-  isMenuOpen = false;
 
   constructor(private router: Router) {}
 
+
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  // Función para el log out
+
+
+  // Función para desplegar el menú de navegación
   desplegarMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('rol');
+    this.router.navigate(['/login']);
   }
 }

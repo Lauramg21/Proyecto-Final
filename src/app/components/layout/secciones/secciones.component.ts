@@ -2,14 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { TableService } from '../../../services/table.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-secciones',
   templateUrl: './secciones.component.html',
   styleUrls: ['./secciones.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
 })
 export class SeccionesComponent implements OnInit {
+  rol: string | null = '';
   secciones: any[] = []; // Lista de secciones
   currentPage: number = 1;
   pageSize: number = 5;
@@ -19,9 +22,15 @@ export class SeccionesComponent implements OnInit {
   isAddMode: boolean = false; // Determina si estamos en modo de añadir
   selectedSeccion: any = { Seccion: '', Estado: 1 }; // Sección seleccionada
 
-  constructor(private tableService: TableService) {}
+  constructor(private tableService: TableService, private router: Router) {}
 
   ngOnInit(): void {
+     this.rol = localStorage.getItem('rol');
+     console.log(this.rol);
+     if (!this.rol) {
+       console.error('No hay rol definido, redirigiendo a login.');
+       this.router.navigate(['/login']);
+     }
     this.loadSecciones(); // Cargar secciones al iniciar
   }
 
@@ -98,10 +107,5 @@ export class SeccionesComponent implements OnInit {
     this.tableService.deleteEntity('secciones', seccion.Id).subscribe(() => {
       this.loadSecciones(); // Recargar la lista después de eliminar
     });
-  }
-
-  // Función para convertir el valor de Estado bit(1) a su descripción
-  getEstado(estado: number): string {
-    return estado === 1 ? 'Activo' : 'Inactivo';
   }
 }

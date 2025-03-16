@@ -18,7 +18,6 @@
       <th>User</th>
       <th>Password</th>
       <th>Rol</th>
-      <th>Estado</th>
     </tr>
   </thead>
   <tbody>
@@ -26,7 +25,6 @@
       <td>{{ usuario.User }}</td>
       <td>{{ usuario.Password }}</td>
       <td>{{ getRol(usuario.rol) }}</td>
-      <td>{{ getEstado(usuario.Estado) }}</td>
       <div class="botones">
         <button class="edit" (click)="openModal(usuario)">
           <i class="fas fa-edit"></i>
@@ -39,7 +37,14 @@
   </tbody>
 </table>
 
-
+<div class="pagination-controls">
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Anterior</button>
+    <button *ngFor="let page of [].constructor(totalPages); let i = index" 
+      (click)="changePage(i + 1)" [class.active]="currentPage === i + 1">
+      {{ i + 1 }}
+    </button>
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Siguiente</button>
+  </div>
 
 <!-- Modal para editar o añadir usuario -->
 <div class="modal" [ngClass]="{ 'show': isEditModalOpen }">

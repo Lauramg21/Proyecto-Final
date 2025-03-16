@@ -1,3 +1,5 @@
+
+
 /* Navbar fijo en la parte superior */
 .navbar {
   position: fixed;
@@ -23,6 +25,11 @@
   content: url("../../../../assets/img/usuario3.png");
 }
 
+.lista{
+  width: 20px;
+  height: 20px;
+  visibility: hidden;
+}
 /* El resto del estilo sigue igual */
 .nav-links {
   font-size: 1.2rem;
@@ -59,32 +66,50 @@
 }
 /* Media Query para pantallas móviles */
 @media (max-width: 767px) {
-  .navbar .container {
+  /* Navbar */
+  .navbar {
+    position: static;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color:var(--hover-color);
   }
 
-  .navbar .logo {
-    font-size: 1.3rem; /* Reduce el tamaño del logo en móviles */
-  }
-
+  /* Contenedor hamburguesa */
   .hamburgerContainer {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 10px;
   }
 
+  /* Logo en móvil */
+  .navbar .logo {
+    height: 25px;
+    width: 25px;
+    margin-bottom: 10px;
+  }
+
+  /* Estilo del menú en móviles (inicialmente oculto) */
   .navbar .nav-links {
-    font-size: 1rem; /* Reducir tamaño de los enlaces */
-    margin-top: 1rem;
-    display: none; /* Por defecto, los enlaces estarán ocultos */
+    font-size: 1rem;
+    display: none;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    width: 100%;
+    background-color: var(--hover-color);
+    top: 70px; /* Ajustar para que el menú no se solape con el navbar */
+    left: 0;
+    padding: 10px;
+    z-index: 20;
   }
 
   .navbar .nav-links.show {
-    display: flex; /* Mostrar los enlaces al activar el menú */
+    display: flex; /* Mostrar el menú cuando se haga clic */
   }
 
   .navbar .hamburger {
@@ -93,11 +118,43 @@
     cursor: pointer;
   }
 
+  /* Estilo del icono de la hamburguesa */
   .navbar .hamburger span {
     width: 25px;
     height: 3px;
-    background-color: black;
+    background-color: white(255, 255, 255, 0.9);
     margin: 5px 0;
     transition: 0.3s;
+  }
+
+  /* Menú desplegable */
+  .nav-links li {
+    width: 100%;
+    text-align: left;
+    padding: 10px 20px;
+  }
+
+  .lista{
+    visibility: visible;
+  }
+
+  /* Cuando el menu está visible */
+  .nav-links.show li {
+    background-color: white(255, 255, 255, 0.9);
+  }
+
+  /* Enlaces del menú en móvil */
+  .nav-links li a {
+        color: white;
+    font-size: 1.1rem;
+    padding: 10px;
+    display: block;
+    width: 100%;
+  }
+
+  /* Enlaces del menú en móvil al hacer hover */
+  .nav-links li a:hover {
+    color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.2);
   }
 }

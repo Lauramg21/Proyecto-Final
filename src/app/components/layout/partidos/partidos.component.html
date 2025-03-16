@@ -1,0 +1,119 @@
+<div class="container-table">
+  <h2>Listado Partidos</h2>
+
+  <div class="container-top">
+    <div class="filtro">
+      <p>Rival:</p>
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="filterPartidos()"
+        placeholder="Buscar..."
+        class="search-box"
+      />
+    </div>
+
+    <div class="filtro">
+      <p>Equipo:</p>
+      <select [(ngModel)]="selectedEquipo" (change)="filterPartidos()">
+        <option [value]="''">Todos</option>
+        <option *ngFor="let equipo of equipos" [value]="equipo.Id">
+          {{ equipo.Equipo }}
+        </option>
+      </select>
+    </div>
+
+    <div class="addUser">
+      <button (click)="openModal()" *ngIf="rol === '0' || rol === '1'">Añadir +</button>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Equipo</th>
+        <th>Rival</th>
+        <th>Fecha</th>
+        <th>Local</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let partido of paginatedPartidos">
+        <td>{{ getEquipoNombre(partido.IdEquipo) }}</td>
+        <td>{{ partido.Rival }}</td>
+        <td>{{ partido.Fecha }}</td>
+        <td>{{ partido.Local ? "Local" : "Visitante" }}</td>
+        <div class="botones" *ngIf="rol === '0' || rol === '1'">
+          <button class="edit" (click)="openModal(partido)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="delete" (click)="deletePartido(partido)">
+            <i class="fas fa-trash" style="color: red"></i>
+          </button>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination-controls">
+    <button
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Anterior
+    </button>
+    <button
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      (click)="changePage(i + 1)"
+      [class.active]="currentPage === i + 1"
+    >
+      {{ i + 1 }}
+    </button>
+    <button
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Siguiente
+    </button>
+  </div>
+</div>
+
+<!-- Modal para editar o añadir partido -->
+<div class="modal" [ngClass]="{ show: isEditModalOpen }">
+  <div class="modal-content">
+    <div class="title">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>{{ isAddMode ? "Añadir Partido" : "Editar Partido" }}</h3>
+      <!-- Título dinámico -->
+    </div>
+    <div class="campos">
+      <div class="campo">
+        <label>Equipo:</label>
+        <select [(ngModel)]="selectedPartido.IdEquipo">
+          <option *ngFor="let equipo of equipos" [value]="equipo.Id">
+            {{ equipo.Equipo }}
+          </option>
+        </select>
+      </div>
+      <div class="campo">
+        <label>Rival:</label>
+        <input type="text" [(ngModel)]="selectedPartido.Rival" />
+      </div>
+      <div class="campo">
+        <label>Fecha:</label>
+        <input type="date" [(ngModel)]="selectedPartido.Fecha" />
+      </div>
+      <div class="campo">
+        <label>Local:</label>
+        <select [(ngModel)]="selectedPartido.Local">
+          <option [value]="1">Local</option>
+          <option [value]="0">Visitante</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="botones-modal">
+      <button class="save" (click)="savePartido()">Guardar</button>
+    </div>
+  </div>
+</div>

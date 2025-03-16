@@ -2,13 +2,25 @@
   <h2>Listado Equipos</h2>
   
   <div class="container-top">
-  <div class="filtro">
-    <p>Buscar: </p>
-<input type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterEquipos()" placeholder="Buscar..." class="search-box">
-  </div>
+<div class="filtro">
+  <p>Buscar: </p>
+  <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterEquipos()" placeholder="Buscar..." class="search-box">
+</div>
+
+<div class="filtro">
+  <p>Sección: </p>
+<select [(ngModel)]="selectedSeccion" (change)="filterEquipos()">
+  <option [value]="''">Todas</option>
+  <option *ngFor="let seccion of secciones" [value]="seccion.Id">
+    {{ seccion.Seccion }}
+  </option>
+</select>
+
+</div>
+
   <!-- Botón de Añadir -->
   <div class="addUser">
-    <button (click)="openModal()">Añadir +</button>
+    <button (click)="openModal()" *ngIf="rol === '0' || rol === '1'">Añadir +</button>
   </div>
 </div>
 <!-- Tabla de usuarios -->
@@ -17,15 +29,13 @@
     <tr>
       <th>Seccion</th>
       <th>Equipo</th>
-      <th>Estado</th>
     </tr>
   </thead>
   <tbody>
   <tr *ngFor="let equipo of paginatedEquipos">
   <td>{{ getSeccionNombre(equipo.IdSeccion) }}</td>
   <td>{{ equipo.Equipo }}</td>
-  <td>{{ getEstado(equipo.Estado) }}</td>
-  <div class="botones">
+  <div class="botones" *ngIf="rol === '0' || rol === '1'">
     <button class="edit" (click)="openModal(equipo)">
       <i class="fas fa-edit"></i>
     </button>

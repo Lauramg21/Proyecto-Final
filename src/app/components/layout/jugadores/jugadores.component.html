@@ -1,0 +1,111 @@
+<div class="container-table">
+  <h2>Listado Jugadores</h2>
+
+  <div class="container-top">
+    <div class="filtro">
+      <p>Buscar:</p>
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="filterJugadores()"
+        placeholder="Buscar..."
+        class="search-box"
+      />
+    </div>
+
+    <div class="filtro">
+      <p>Equipo:</p>
+      <select [(ngModel)]="selectedEquipo" (change)="filterJugadores()">
+        <option [value]="''">Todas</option>
+        <option *ngFor="let equipo of equipos" [value]="equipo.Id">
+          {{ equipo.Equipo }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Botón de Añadir -->
+    <div class="addUser">
+      <button (click)="openModal()" *ngIf="rol === '0' || rol === '1'">Añadir +</button>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Equipo</th>
+        <th>Jugador</th>
+        <th>Numero</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let jugador of paginatedJugadores">
+        <td>{{ getEquipoNombre(jugador.IdEquipo) }}</td>
+        <td>{{ jugador.Jugador }}</td>
+        <td>{{ jugador.Numero }}</td>
+        <div class="botones" *ngIf="rol === '0' || rol === '1'">
+          <button class="edit" (click)="openModal(jugador)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="delete" (click)="deleteJugador(jugador)">
+            <i class="fas fa-trash" style="color: red"></i>
+          </button>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination-controls">
+    <button
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Anterior
+    </button>
+    <button
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      (click)="changePage(i + 1)"
+      [class.active]="currentPage === i + 1"
+    >
+      {{ i + 1 }}
+    </button>
+    <button
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Siguiente
+    </button>
+  </div>
+</div>
+
+<!-- Modal para editar o añadir usuario -->
+<div class="modal" [ngClass]="{ show: isEditModalOpen }">
+  <div class="modal-content">
+    <div class="title">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>{{ isAddMode ? "Añadir Jugador" : "Editar Jugador" }}</h3>
+      <!-- Título dinámico -->
+    </div>
+    <div class="campos">
+      <div class="campo">
+        <label>Jugador:</label>
+        <input type="text" [(ngModel)]="selectedJugador.Jugador" />
+      </div>
+      <div class="campo">
+        <label>Numero:</label>
+        <input type="number" [(ngModel)]="selectedJugador.Numero" />
+      </div>
+      <div class="campo">
+        <label>Equipo:</label>
+        <select [(ngModel)]="selectedJugador.IdEquipo">
+          <option *ngFor="let equipo of equipos" [value]="equipo.Id">
+            {{ equipo.Equipo }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="botones-modal">
+      <button class="save" (click)="saveJugador()">Guardar</button>
+    </div>
+  </div>
+</div>

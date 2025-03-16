@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { TableService } from '../../../services/table.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-equipos',
   templateUrl: './equipos.component.html',
   styleUrls: ['./equipos.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
 })
 export class EquiposComponent implements OnInit {
+  rol: string | null = '';
   equipos: any[] = []; // Lista de equipos
   filteredEquipos: any[] = []; // Equipos filtrados
   secciones: any[] = []; // Lista de secciones
@@ -20,10 +22,17 @@ export class EquiposComponent implements OnInit {
   isEditModalOpen: boolean = false;
   isAddMode: boolean = false; // Determina si estamos en modo de añadir
   selectedEquipo: any = { Equipo: '', Estado: 1, IdSeccion: null }; // Equipo seleccionado, con SeccionId
+  selectedSeccion: number | null = null; // Sección seleccionada para filtrar
 
-  constructor(private tableService: TableService) {}
+  constructor(private tableService: TableService, private router: Router) {}
 
   ngOnInit(): void {
+    this.rol = localStorage.getItem('rol');
+    console.log(this.rol);
+    if (!this.rol) {
+      console.error('No hay rol definido, redirigiendo a login.');
+      this.router.navigate(['/login']);
+    }
     this.loadEquipos(); // Cargar equipos al iniciar
     this.loadSecciones(); // Cargar secciones al iniciar
   }
@@ -32,7 +41,7 @@ export class EquiposComponent implements OnInit {
   loadEquipos(): void {
     this.tableService.getEntities('equipos').subscribe((response) => {
       this.equipos = response;
-      this.filteredEquipos = this.equipos; // Inicializar los equipos filtrados
+      this.filteredEquipos = this.equipos;
       this.totalPages = Math.ceil(this.filteredEquipos.length / this.pageSize);
     });
   }
@@ -44,12 +53,19 @@ export class EquiposComponent implements OnInit {
     });
   }
 
-  // Filtro de equipos
-  // Método para filtrar equipos
+  // Sección seleccionada para filtrar
   filterEquipos(): void {
-    this.filteredEquipos = this.equipos.filter((equipo) =>
-      equipo.Equipo.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+    this.filteredEquipos = this.equipos.filter((equipo) => {
+      const matchesSearch = equipo.Equipo?.toLowerCase().includes(
+        this.searchTerm.toLowerCase()
+      );
+
+      const matchesSeccion =
+        !this.selectedSeccion || equipo.IdSeccion == this.selectedSeccion;
+
+      return matchesSearch && matchesSeccion;
+    });
+
     this.currentPage = 1; // Reiniciar a la primera página después del filtro
     this.totalPages = Math.ceil(this.filteredEquipos.length / this.pageSize);
   }
@@ -109,11 +125,6 @@ export class EquiposComponent implements OnInit {
     this.tableService.deleteEntity('equipos', equipo.Id).subscribe(() => {
       this.loadEquipos(); // Recargar la lista después de eliminar
     });
-  }
-
-  // Función para convertir el valor de Estado bit(1) a su descripción
-  getEstado(estado: number): string {
-    return estado === 1 ? 'Activo' : 'Inactivo';
   }
 
   // Método para obtener el nombre de la sección a partir del ID
